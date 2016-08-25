@@ -33,7 +33,7 @@ public:
   CDnsSeedOpts() : nThreads(96), nDnsThreads(4), nPort(53), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
-    static const char *help = "Litecoin-seeder\n"
+    static const char *help = "Verium-seeder\n"
                               "Usage: %s -h <host> -n <ns> [-m <mbox>] [-t <threads>] [-p <port>]\n"
                               "\n"
                               "Options:\n"
@@ -356,13 +356,13 @@ extern "C" void* ThreadStats(void*) {
   } while(1);
 }
 
-static const string mainnet_seeds[] = {"dnsseed.litecointools.com", "dnsseed.litecoinpool.org", "dnsseed.ltc.xurious.com", "dnsseed.koin-project.com", ""};
-static const string testnet_seeds[] = {"testnet-seed.litecointools.com", "testnet-seed.ltc.xurious.com", ""};
+static const string mainnet_seeds[] = {"vrmdns.vericoin.info", ""};
+static const string testnet_seeds[] = { ""};
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
   if (!fTestNet){
-    db.Add(CService("kjy2eqzk4zwi5zd3.onion", 9333), true);
+    db.Add(CService("kjy2eqzk4zwi5zd3.onion", 35988), true);
   }
   do {
     for (int i=0; seeds[i] != ""; i++) {
@@ -405,10 +405,10 @@ int main(int argc, char **argv) {
   bool fDNS = true;
   if (opts.fUseTestNet) {
       printf("Using testnet.\n");
-      pchMessageStart[0] = 0xfc;
-      pchMessageStart[1] = 0xc1;
-      pchMessageStart[2] = 0xb7;
-      pchMessageStart[3] = 0xdc;
+      pchMessageStart[0] = 0xcd;
+      pchMessageStart[1] = 0xf2;
+      pchMessageStart[2] = 0xc0;
+      pchMessageStart[3] = 0xef;
       seeds = testnet_seeds;
       fTestNet = true;
   }
